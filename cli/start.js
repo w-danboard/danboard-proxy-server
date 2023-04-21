@@ -21,7 +21,7 @@ class Server {
   async setup(options) {
     this.whiteList = JSON.parse(options.whiteList || '["/api"]')
     this.staticPath = options.staticPath || path.resolve(__dirname, '../')
-    this.target = options.target || `http://localhost:18080`
+    this.target = options.target || 'http://localhost:18080'
     this.index = options.index || 'index.html'
     this.startServer()
   }
