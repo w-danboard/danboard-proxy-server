@@ -1,4 +1,4 @@
-# proxy-server-cli
+# proxy-server
 
 ### 使用方式
 
