@@ -1,3 +1,4 @@
+const { version } = require('./package.json')
 const compareFunc = require('compare-func')
 
 module.exports = {
@@ -11,29 +12,29 @@ module.exports = {
         discard = false
       })
       if (commit.type === 'feat') {
-        commit.type = '✨ Features | 新功能'
+        commit.type = `✨ Features | 新功能 (${version})`
       } else if (commit.type === 'fix') {
-        commit.type = '🐛 Bug Fixes | Bug 修复'
+        commit.type = `🐛 Bug Fixes | Bug 修复 (${version})`
       } else if (commit.type === 'perf') {
         commit.type = '⚡ Performance Improvements | 性能优化'
       } else if (commit.type === 'revert' || commit.revert) {
-        commit.type = '⏪ Reverts | 回退'
+        commit.type = `⏪ Reverts | 回退 (${version})`
       } else if (discard) {
         return
       } else if (commit.type === 'docs') {
-        commit.type = '📝 Documentation | 文档'
+        commit.type = `📝 Documentation | 文档 (${version})`
       } else if (commit.type === 'style') {
-        commit.type = '💄 Styles | 风格'
+        commit.type = `💄 Styles | 风格 (${version})`
       } else if (commit.type === 'refactor') {
-        commit.type = '♻ Code Refactoring | 代码重构'
+        commit.type = `♻ Code Refactoring | 代码重构 (${version})`
       } else if (commit.type === 'test') {
-        commit.type = '✅ Tests | 测试'
+        commit.type = `✅ Tests | 测试 (${version})`
       } else if (commit.type === 'build') {
-        commit.type = '👷‍ Build System | 构建'
+        commit.type = `👷‍ Build System | 构建 (${version})`
       } else if (commit.type === 'ci') {
-        commit.type = '🔧 Continuous Integration | CI 配置'
+        commit.type = `🔧 Continuous Integration | CI 配置 (${version})`
       } else if (commit.type === 'chore') {
-        commit.type = '🎫 Chores | 其他更新'
+        commit.type = `🎫 Chores | 其他更新 (${version})`
       }
 
       if (commit.scope === '*') {

@@ -1,6 +1,6 @@
 {
   "name": "proxy-server",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "静态服务器代理",
   "main": "index.js",
   "scripts": {
