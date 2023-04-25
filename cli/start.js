@@ -13,26 +13,25 @@ const PORT = 8000
 
 class Server {
   constructor () {
-    this.whiteList = null
+    this.filters = null
     this.staticPath = null
     this.target = null
     this.index = null
   }
   async setup(options) {
-    this.whiteList = JSON.parse(options.whiteList || '["/api"]')
+    this.filters = JSON.parse(options.filters || '["/api"]')
     this.staticPath = options.staticPath || path.resolve(__dirname, '../')
     this.target = options.target || 'http://localhost:18080'
     this.index = options.index || 'index.html'
     this.startServer()
   }
   async startServer () {
-    const { target, whiteList, staticPath, index } = this
+    const { target, filters, staticPath, index } = this
     console.log(`🚀 Starting SERVER...\n`)
 
     // 除了接口之外的所有请求都发送给静态文件
-    app.use(historyApiFallback({ whiteList, index }))
+    app.use(historyApiFallback({ filters, index }))
 
-    console.log(path.resolve(__dirname))
     // 静态文件目录
     app.use(koaStatic(staticPath))
 
