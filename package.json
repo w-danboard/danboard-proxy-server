@@ -1,5 +1,5 @@
 {
-  "name": "proxy-server",
+  "name": "danboard-proxy-server",
   "version": "1.0.0",
   "description": "静态服务器代理",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/w-danboard/proxy-server.git"
+    "url": "git+https://github.com/w-danboard/danboard-proxy-server.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/w-danboard/proxy-server/issues"
+    "url": "https://github.com/w-danboard/danboard-proxy-server/issues"
   },
-  "homepage": "https://github.com/w-danboard/proxy-server#readme",
+  "homepage": "https://github.com/w-danboard/danboard-proxy-server#readme",
   "devDependencies": {
     "chalk": "^4.1.0",
     "commander": "^10.0.0",
