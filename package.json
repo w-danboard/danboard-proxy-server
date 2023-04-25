@@ -42,7 +42,7 @@
   },
   "changelog": {
     "emojis": true,
-    "authorName": true,
-    "authorEmail": true
+    "authorName": false,
+    "authorEmail": false
   }
 }
