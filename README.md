@@ -1,8 +1,9 @@
+[![license](https://img.shields.io/github/license/http-party/http-server.svg?style=flat-square)](https://github.com/w-danboard/danboard-proxy-server)
 # proxy-server
 
 ### 使用方式
 
-- `npm i proxy-server -g`
+- `npm i danboard-proxy-server -g`
 - `proxy-server -v` 查看当前版本号
 - proxy-server start -f '["/api"]' -s 静态文件根目录 -t http://localhost:18080 -i index.html
 
