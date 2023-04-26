@@ -1,4 +1,19 @@
-# 1.0.0 (2023-04-25)
+## [1.0.1](https://github.com/w-danboard/danboard-proxy-server/compare/v1.0.0...v1.0.1) (2023-04-26)
+
+
+### 🎫 Chores
+
+* **license.dat:** 新增文件 ([bade6f4](https://github.com/w-danboard/danboard-proxy-server/commit/bade6f4))
+* **版本升级v1.0.1:** 本次主要修改README.md使用文档 `npm i danboard-proxy-server -g` ([f5cbd2c](https://github.com/w-danboard/danboard-proxy-server/commit/f5cbd2c))
+
+
+### 📝 Documentation
+
+* **readme.md:** 新增文档 ([24a1244](https://github.com/w-danboard/danboard-proxy-server/commit/24a1244))
+
+
+
+# [1.0.0](https://github.com/w-danboard/danboard-proxy-server/compare/c46de78...v1.0.0) (2023-04-25)
 
 
 ### ♻ Code Refactoring
@@ -31,6 +46,7 @@
 ### 📝 Documentation
 
 * **changelog.md:** 新增文件 ([ce768f4](https://github.com/w-danboard/danboard-proxy-server/commit/ce768f4))
+* **changelog.md:** 添加changelog ([68ba502](https://github.com/w-danboard/danboard-proxy-server/commit/68ba502))
 * **changelog.md:** 添加修改记录文件 ([851af58](https://github.com/w-danboard/danboard-proxy-server/commit/851af58))
 * **changelog:** 更新文档 ([d79851f](https://github.com/w-danboard/danboard-proxy-server/commit/d79851f))
 * **readme.md:** 更新使用方式 ([a38528b](https://github.com/w-danboard/danboard-proxy-server/commit/a38528b))
