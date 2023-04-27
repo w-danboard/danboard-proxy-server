@@ -1,6 +1,6 @@
 {
   "name": "danboard-proxy-server",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "静态服务器代理",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/w-danboard/danboard-proxy-server/issues"
   },
