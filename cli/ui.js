@@ -17,7 +17,7 @@ class Ui {
     console.log(`🚀 Starting UI...\n`)
 
     // 静态文件目录
-    app.use(koaStatic(path.resolve(__dirname, '../web/public')))
+    app.use(koaStatic(path.resolve(__dirname, '../web/dist')))
 
     try {
       const port = await portIsOccupied(PORT)
