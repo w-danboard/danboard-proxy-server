@@ -18,7 +18,7 @@ class Server {
     this.target = null
     this.index = null
   }
-  async setup(options) {
+  setup(options) {
     this.filters = JSON.parse(options.filters || '["/api"]')
     this.staticPath = options.staticPath || path.resolve(__dirname, '../')
     this.target = options.target || 'http://localhost:18080'
