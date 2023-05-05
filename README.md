@@ -5,13 +5,11 @@
 
 - `npm i danboard-proxy-server -g`
 - `proxy-server -v` 查看当前版本号
-- proxy-server start -f '["/api"]' -s 静态文件根目录 -t http://localhost:18080 -i index.html
+- proxy-server start -s 静态文件根目录 -t http://localhost:18080 -i index.html
 
 ---
 
 ### start参数
-
-参数 `-f` [filters]为字符串数组，默认过滤 `'["/api"]'`
 
 参数 `-s` [staticPath]为静态文件根目录，`必选`
 
