@@ -13,13 +13,13 @@ const PORT = 8000
 
 class Server {
   constructor () {
-    this.filters = null
+    // this.filters = null
     this.staticPath = null
     this.target = null
     this.index = null
   }
-  setup(options) {
-    this.filters = JSON.parse(options.filters || '["/api"]')
+  setup(options = {}) {
+    // this.filters = JSON.parse(options.filters || '["/api"]')
     this.staticPath = options.staticPath || path.resolve(__dirname, '../')
     this.target = options.target || 'http://localhost:18080'
     this.index = options.index || 'index.html'
@@ -30,7 +30,8 @@ class Server {
     console.log(`🚀 Starting SERVER...\n`)
 
     // 除了接口之外的所有请求都发送给静态文件
-    app.use(historyApiFallback({ filters, index }))
+    // app.use(historyApiFallback({ filters, index }))
+    app.use(historyApiFallback({ index }))
 
     // 静态文件目录
     app.use(koaStatic(staticPath))
