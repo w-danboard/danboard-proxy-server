@@ -11,7 +11,7 @@ program.version(pkg.version, '-v', '--version')
 // 控制台启动
 program.command('start')
   .description('start server...')
-  .option('-f, --filters [filters], 以哪些开头的使用代理，并替换掉')
+  // .option('-f, --filters [filters], 以哪些开头的使用代理，并替换掉')
   .option('-s, --staticPath [staticPath], 静态文件根目录')
   .option('-t, --target [target], 需要代理到的服务地址')
   .option('-i, --index [index], 静态文件首页')
