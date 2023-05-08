@@ -39,7 +39,11 @@
     "koa2-connect-history-api-fallback": "^0.1.3",
     "open": "^8.0.2",
     "path": "^0.12.7",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "axios": "^1.4.0",
+    "element-ui": "^2.15.1",
+    "vue": "^2.6.12",
+    "vuex": "^3.6.2"
   },
   "config": {
     "commitizen": {
@@ -50,8 +54,5 @@
     "emojis": true,
     "authorName": false,
     "authorEmail": false
-  },
-  "dependencies": {
-    "vue": "^2.6.12"
   }
 }
