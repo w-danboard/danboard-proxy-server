@@ -1,5 +1,5 @@
 <template>
-  <div class="idss-select-os-path">
+  <div class="select-os-path">
     <!-- 头部路径 -->
     <section class="header__wapper">
       <!-- 返回上级目录 -->
@@ -22,7 +22,7 @@
         <el-link
           icon="el-icon-edit"
           style="margin-left: 10px;"
-          v-idss-tooltip="{ content: '输入路径' }"
+          v-tooltip="{ content: '输入路径' }"
           @click="isShowFindPath = true"></el-link>
       </div>
       <!-- 输入框路径搜索 -->
@@ -105,7 +105,6 @@ export default {
 
     // 获取用户根目录
     async getHomeDir () {
-      debugger
       const path = await this.$request({
         url: '/finder/homedir',
         baseURL: '/api'
@@ -146,56 +145,54 @@ export default {
   }
 }
 </script>
-<style scoped lang='postcss'>
-  .idss-select-os-path {
+<style scoped>
+  .select-os-path {
     height: 450px;
+  }
+  .select-os-path .header__wapper {
+    max-height: 60px;
+    overflow: auto;
+  }
 
-    & .header__wapper {
-      max-height: 60px;
-      overflow: auto;
-      >>> .el-button {
-        padding: 5px 8px;
-        font-size: 12px;
-        max-width: 150px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        margin-bottom: 10px;
+  .select-os-path .header__wapper .el-button {
+    padding: 5px 8px;
+    font-size: 12px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    margin-bottom: 10px;
+  }
 
-        [class^="el-icon-"]{
-          font-size: 12px;
-        }
-      }
-      .inline-block {
-        display: inline-block;
-        margin-left: 10px;
-      }
-    }
-    & .footer__wapper {
-      text-align: center;
+  .select-os-path .header__wapper .inline-block {
+    display: inline-block;
+    margin-left: 10px;
+  }
 
-      button {
-        margin-right: 20px;
-      }
-    }
+  .select-os-path .footer__wapper {
+    text-align: center;
+  }
 
-    & .scroll__warpper {
-      height: 320px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      
-      ul {
-        padding: 0 20px;
+  .select-os-path .footer__wapper button {
+    margin-right: 20px;
+  }
 
-        li {
-          line-height: 25px;
+  .select-os-path .scroll__warpper {
+    height: 320px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
 
-          .el-link {
-            font-weight: normal;
-          }
-        }
-      }
-    }
+  .select-os-path .scroll__warpper ul {
+    padding: 0 20px;
+  }
+
+  .select-os-path .scroll__warpper ul li {
+    line-height: 25px;
+  }
+
+  .select-os-path .scroll__warpper ul li .el-link {
+    font-weight: normal;
   }
 </style>

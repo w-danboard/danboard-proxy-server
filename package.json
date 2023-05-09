@@ -52,10 +52,12 @@
   },
   "dependencies": {
     "@koa/router": "^12.0.0",
+    "element-resize-detector": "^1.2.4",
     "element-ui": "^2.15.1",
     "fuse.js": "^6.4.6",
     "http-proxy": "^1.18.1",
     "i18n": "^0.15.1",
+    "iscroll": "^5.2.0",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
     "koa-history-api-fallback": "^1.0.0",

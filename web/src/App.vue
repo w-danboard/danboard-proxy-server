@@ -17,13 +17,13 @@
           <!-- 项目名称 -->
           <section class="title" @click="gotoProject(item.name)">
             <el-link
-              v-idss-tooltip="{ idssOverWidthDisplay: true }"
+              v-tooltip="{ idssOverWidthDisplay: true }"
               type="primary" class="maintitle ellipsis">
               <i class="el-icon-magic-stick" v-if="workSpacePath === item.path"></i>
               {{item.name}}
             </el-link>
             <el-link
-              v-idss-tooltip="{ idssOverWidthDisplay: true }"
+              v-tooltip="{ idssOverWidthDisplay: true }"
               type="info" :underline="false"
               class="subtitle ellipsis">{{item.description}}</el-link>
           </section>
@@ -35,20 +35,20 @@
           <p class="operation">
             <!-- 打开文件夹 -->
             <el-button
-              v-idss-tooltip="{ content: '打开文件夹' }"
+              v-tooltip="{ content: '打开文件夹' }"
               type="primary" icon="el-icon-folder-opened"
               plain circle size="small"
               @click="openProject(item.path)"></el-button>
             <!-- 打开编辑器 -->
             <el-button
-              v-idss-tooltip="{ content: '打开编辑器' }"
+              v-tooltip="{ content: '打开编辑器' }"
               type="primary" icon="el-icon-edit"
               plain circle size="small"
               @click="openEditor(item.path)"></el-button>
             <!-- 删除文件夹 -->
             <el-button
               v-if="workSpacePath !== item.path"
-              v-idss-tooltip="{ content: '删除' }"
+              v-tooltip="{ content: '删除' }"
               type="primary" icon="el-icon-delete"
               plain circle size="small"
               @click="delProject(item.name)"></el-button>
@@ -65,10 +65,13 @@
         :visible.sync="addProjectDialog"
         @select="addProject"></add-project>
     </el-dialog>
+    <!-- tooltip占位 -->
+    <el-tooltip ref="tooltip" v-bind="tooltipOpt"/>
   </div>
 </template>
 
 <script>
+import ElTooltip from 'element-ui/lib/tooltip'
 import Fuse from 'fuse.js'
 import { getLocalData } from '../custom/utils'
 import AddProject from './components/add-project.vue'
@@ -84,9 +87,10 @@ const fuseOpt = {
 }
 export default {
   name: 'app',
-  components: { AppHeader, AddProject },
+  components: { ElTooltip, AppHeader, AddProject },
   data () {
     return {
+      tooltipOpt: {},
       addProjectDialog: false,
       homeDir: '',
       projectList: [],

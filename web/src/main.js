@@ -1,13 +1,16 @@
+import ElementUI from 'element-ui'
 import Vue from 'vue'
 import App from './App.vue'
-import ElementUI from 'element-ui'
 import Request from './plugins/request.js'
 
-import './assets/styles/reset.css'
+import DirectivesAll from './directives'
+
 import 'element-ui/lib/theme-chalk/index.css'
+import './assets/styles/reset.css'
 
 Vue.use(ElementUI)
 Vue.use(Request)
+Vue.use(DirectivesAll)
 
 new Vue({
   render: h => h(App)
