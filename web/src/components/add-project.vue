@@ -105,6 +105,7 @@ export default {
 
     // 获取用户根目录
     async getHomeDir () {
+      debugger
       const path = await this.$request({
         url: '/finder/homedir',
         baseURL: '/api'

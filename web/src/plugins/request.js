@@ -1,6 +1,6 @@
 import axios from 'axios'
-import store from '../store'
 import { Message } from 'element-ui'
+import store from '../store'
 
 /**
  * 兼容vue实例访问 && 非vue实例访问
@@ -44,7 +44,7 @@ export default {
 export const request = function (reqConfig, reqOptions = {}) {
   let from = (this || {}).$route
   // 默认get请求、请求超时60s、不需要取消请求、tag
-  let { method = 'get', url = '', timeout = 60000, data } = reqConfig
+  let { method = 'get', url = '', timeout = 60000, data, baseURL = '/api' } = reqConfig
   let {
     isCancel = false,       // 取消请求
     tag = '',               // tag标识、loading使用
@@ -64,6 +64,7 @@ export const request = function (reqConfig, reqOptions = {}) {
       url,
       data,
       timeout,
+      baseURL,
       // 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'。default json
       responseType
     }
@@ -116,24 +117,7 @@ export const request = function (reqConfig, reqOptions = {}) {
       } else if (axios.isCancel(err)) {
         errorMsg = '请求被取消！'
       } else {
-        switch (err.response && err.response.status) {
-          case 401:
-            // token失效，跳转到 401 页面，
-            router.replaceTagPush({ name: 'permission-401' }, from)
-            break
-          case 403:
-            // 无权限访问
-            router.replaceTagPush({ name: 'permission-403' }, from)
-            break
-          case 404:
-            // 暂不处理
-            break
-          case 500:
-            router.replaceTagPush({ name: 'permission-500' }, from)
-            break
-          default:
-            console.log(err)
-        }
+        console.log(err)
       }
       reject({
         errorCode: err.response && err.response.status,

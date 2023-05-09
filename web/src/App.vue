@@ -69,8 +69,19 @@
 </template>
 
 <script>
-import AppHeader from './layout/app-header.vue'
+import Fuse from 'fuse.js'
+import { getLocalData } from '../custom/utils'
 import AddProject from './components/add-project.vue'
+import AppHeader from './layout/app-header.vue'
+const fuseOpt = {
+  shouldSort: true,
+  threshold: 0.4,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: ['name', 'description', 'path']
+}
 export default {
   name: 'app',
   components: { AppHeader, AddProject },
@@ -133,9 +144,10 @@ export default {
     },
     // 获取项目列表
     async getProjectList () {
-      const list = await this.$request({
-        url: '/project/list'
-      })
+      // const list = await this.$request({
+      //   url: '/project/list'
+      // })
+      const list = getLocalData('projects') || []
       this.originProjectList = Object.freeze(list)
       this.initFuse()
       this.query()
