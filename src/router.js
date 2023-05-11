@@ -26,7 +26,8 @@ router.delete('/project', controller.project.delProject)
 // 设置工作目录
 router.post('/project/workspace', controller.project.setWorkspace)
 // 获取工作目录
-router.get('/project/workspace', hasWorkSpace, controller.project.getWorkspace)
+// router.get('/project/workspace', hasWorkSpace, controller.project.getWorkspace)
+router.get('/project/workspace', controller.project.getWorkspace)
 router.get('/project/get-readme', hasWorkSpace, controller.project.getReadme)
 // 获取项目所有任务
 router.get('/project/task', hasWorkSpace, controller.task.getTask)

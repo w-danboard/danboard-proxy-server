@@ -91,11 +91,19 @@ export default {
   },
   methods: {
     async getFiles () {
-      this.$emit('change', this.findPath)
-      const list = await this.$request({
-        url: `/finder/files?parentPath=${this.findPath}`
-      })
-      this.fileList = list
+      try {
+        // this.$emit('change', this.findPath)
+        const list = await this.$request({
+          url: `/finder/files?parentPath=${this.findPath}`
+        }, { isPromptError: false })
+        this.fileList = list
+      } catch (err) {
+        this.selectPath(this.pathList.slice(0, -1).join(this.sep))
+        this.$message({
+          message: '当前路径不是一个文件夹, 请重新选择',
+          type: 'warning'
+        })
+      }
     },
 
     // 拆分路径为数组，用于展示路径

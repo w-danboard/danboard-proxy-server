@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
+
+import { request } from '../plugins/request.js'
+
 
 const store = new Vuex.Store({
   state: {
@@ -24,7 +26,7 @@ const store = new Vuex.Store({
     async getWorkSpace ({ commit }) {
       let res = false
       try {
-        res = await this.$request({
+        res = await request({
           url: '/project/workspace'
         }, {
           isPromptError: false

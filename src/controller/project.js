@@ -1,5 +1,5 @@
 const { validateIsNpm, readFileSync, isFile } = require('../utils')
-const path = require('path')
+const fs = require('fs')
 /**
  * 添加项目
  */
@@ -10,11 +10,17 @@ async function addProject (ctx) {
   const { path } = ctx.request.body
   try {
     // 验证当前路径是否满足一个项目
-    const config = validateIsNpm(path)
-    if (!config) {
-      return ctx.error('当前路径不是一个项目，请重新选择')
+    // const config = validateIsNpm(path)
+    // if (!config) {
+    //   return ctx.error('当前路径不是一个项目，请重新选择')
+    // }
+    const fileStat = fs.statSync(path)
+    const isDirectory = fileStat.isDirectory()
+    if (!isDirectory) {
+      return ctx.error('当前路径错误，请重新选择')
     }
-    const res = await ctx.service.project.addProject({ path, name: config.name, description: config.description })
+    const name = require('path').basename(path)
+    const res = await ctx.service.project.addProject({ path, name })
     ctx.success(res)
   } catch (err) {
     ctx.error(err)
@@ -63,12 +69,12 @@ async function setWorkspace (ctx) {
  * 获取当前工作目录（根据session获取）
  */
 async function getWorkspace (ctx) {
-  const workspaceInfo = ctx.session.workspace || ''
+  // const workspaceInfo = ctx.session.workspace || ''
   // 获取工作目录信息
-  if (workspaceInfo.name) {
+  // if (workspaceInfo.name) {
     const res = await ctx.service.project.getProject(workspaceInfo.name)
     ctx.success(res)
-  }
+  // }
 }
 
 /**

@@ -1,3 +1,4 @@
+import Store from '@/store'
 import ElementUI from 'element-ui'
 import Vue from 'vue'
 import App from './App.vue'
@@ -13,5 +14,6 @@ Vue.use(Request)
 Vue.use(DirectivesAll)
 
 new Vue({
+  store: Store,
   render: h => h(App)
 }).$mount('#app')

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import store from '../store'
 
 /**
  * 兼容vue实例访问 && 非vue实例访问
@@ -90,16 +89,8 @@ export const request = function (reqConfig, reqOptions = {}) {
         // 成功返回content内容
         resolve(content)
       } else {
-        // 100007 token失效
-        // @FIXME：token失效错误码反生变更，兼容处理
-        if (['100007', '100026'].includes(errorCode)) {
-          // 触发重新登录
-          return store.commit('base/isReLogin', true)
-        }
         /* eslint-disable prefer-promise-reject-errors */
-        isPromptError && Message.error({
-          message: Array.isArray(content) && content.length ? content[0].message : message
-        })
+        isPromptError && Message.error({ message: content })
         reject({
           errorCode: errorCode,
           // Object.keys 如果传递的是一个数组，会将下标做为key去操作。

@@ -2,30 +2,31 @@
   <div id="app">
     <AppHeader></AppHeader>
     <section class="project-manage">
-      <el-row type="flex" justify="end">
+      <el-row type="flex" justify="center">
         <el-input
           class="inline-block" style="width: 400px; margin-right: 20px;"
-          placeholder="请输入搜索名称" size="small" suffix-icon="el-icon-search"
+          placeholder="请输入搜索项目名称" size="medium" suffix-icon="el-icon-search"
           v-model.trim="queryStr" @keyup.enter.native="query" @blur="query"></el-input>
-        <el-button type="primary" icon="el-icon-plus" size='small' @click="toggleDialog">导入项目</el-button>
+        <el-button type="primary" icon="el-icon-plus" size='mini' @click="toggleDialog">导入项目</el-button>
       </el-row>
     </section>
     <section class="project-wapper">
-      <div v-if="!projectList || !projectList.length" class="empty-data center mt20">暂无数据</div>
+      <div v-if="!projectList[0] || !projectList[0].path" class="empty-data">暂无数据</div>
       <ul>
-        <li class="project-block" v-for="item in projectList" :key="item.name">
+        <li class="project-block" v-for="item in projectList" :key="item.path">
+          <!-- 是否启动 -->
+          <el-switch v-model="item.value"></el-switch>
           <!-- 项目名称 -->
           <section class="title" @click="gotoProject(item.name)">
             <el-link
               v-tooltip="{ idssOverWidthDisplay: true }"
               type="primary" class="maintitle ellipsis">
-              <i class="el-icon-magic-stick" v-if="workSpacePath === item.path"></i>
               {{item.name}}
             </el-link>
-            <el-link
+            <!-- <el-link
               v-tooltip="{ idssOverWidthDisplay: true }"
               type="info" :underline="false"
-              class="subtitle ellipsis">{{item.description}}</el-link>
+              class="subtitle ellipsis">{{item.description}}</el-link> -->
           </section>
           <!-- 项目描述 -->
           <section class="desc">
@@ -36,22 +37,21 @@
             <!-- 打开文件夹 -->
             <el-button
               v-tooltip="{ content: '打开文件夹' }"
-              type="primary" icon="el-icon-folder-opened"
-              plain circle size="small"
+              icon="el-icon-folder-opened"
+              size="small"
               @click="openProject(item.path)"></el-button>
             <!-- 打开编辑器 -->
             <el-button
               v-tooltip="{ content: '打开编辑器' }"
-              type="primary" icon="el-icon-edit"
-              plain circle size="small"
+              icon="el-icon-edit"
+              size="small"
               @click="openEditor(item.path)"></el-button>
             <!-- 删除文件夹 -->
             <el-button
-              v-if="workSpacePath !== item.path"
               v-tooltip="{ content: '删除' }"
-              type="primary" icon="el-icon-delete"
-              plain circle size="small"
-              @click="delProject(item.name)"></el-button>
+              icon="el-icon-delete"
+              size="small"
+              @click="delProject(item.path)"></el-button>
           </p>
         </li>
       </ul>
@@ -73,7 +73,7 @@
 <script>
 import ElTooltip from 'element-ui/lib/tooltip'
 import Fuse from 'fuse.js'
-import { getLocalData } from '../custom/utils'
+import { getLocalData, setLocalData } from '../custom/utils'
 import AddProject from './components/add-project.vue'
 import AppHeader from './layout/app-header.vue'
 const fuseOpt = {
@@ -95,11 +95,6 @@ export default {
       homeDir: '',
       projectList: [],
       queryStr: ''
-    }
-  },
-  computed: {
-    workSpacePath () {
-      return this.$store.getters['workSpace'] && this.$store.getters['workSpace'].path
     }
   },
   methods: {
@@ -131,19 +126,39 @@ export default {
     },
     // 添加项目
     async addProject (path) {
-      await this.$request({
+      const list = JSON.parse(JSON.stringify(this.originProjectList))
+      for (let i = 0; i < list.length; i++) {
+        if (path === list[i].path) {
+          return this.$message({
+            message: '此静态文件已存在，请重新选择',
+            type: 'warning'
+          })
+        }
+      }
+      const project = await this.$request({
         url: '/project/add',
         method: 'post',
         data: { path }
-      })
+      }, { isPromptError: false })
+      project.value = false
+      list.push(project)
+      setLocalData('projects', list)
       this.getProjectList()
     },
     // 删除项目
-    async delProject (name) {
-      await this.$request({
-        url: `/project?name=${name}`,
-        method: 'delete'
-      })
+    async delProject (path) {
+      // await this.$request({
+      //   url: `/project?name=${name}`,
+      //   method: 'delete'
+      // })
+      const list = JSON.parse(JSON.stringify(this.originProjectList))
+      for (let i = 0; i < list.length; i++) {
+        if (path === list[i].path) {
+          list.splice(i, 1)
+          break
+        }
+      }
+      setLocalData('projects', list)
       this.getProjectList()
     },
     // 获取项目列表
@@ -162,13 +177,14 @@ export default {
     },
     query () {
       const query = this.queryStr
-      this.projectList = Object.freeze(!query ?
+      this.projectList = Object.assign({}, !query ?
         this.originProjectList :
         this.fuse.search(query).map(x => x.item)
       )
     }
   },
-  created () {
+  async mounted () {
+    await this.$nextTick()
     this.getProjectList()
   }
 }
@@ -176,6 +192,91 @@ export default {
 
 <style scoped>
 .project-manage {
-  margin: 15px;
+  padding: 20px;
+  margin: 0 20px;
+  border-bottom: 1px solid #ededed;
+}
+
+.project-wapper .empty-data {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.project-wapper ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  flex-wrap: wrap;
+  padding-left: 40px;
+  margin-top: 30px;
+}
+
+.project-wapper ul li.project-block {
+  position: relative;
+  list-style: none;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 250px;
+  height: 180px;
+  border: 1px solid #EBEBEB;
+  background: #fafafa;
+  border-radius: 3px;
+  padding: 20px;
+  color: #444;
+  box-sizing: content-box;
+}
+
+.project-wapper ul li.project-block .el-switch {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.project-wapper ul li.project-block .title {
+  height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.project-wapper ul li.project-block .title .el-link--inner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.project-wapper ul li.project-block .title .maintitle {
+  font-size: 16px;
+  line-height: 25px;
+  margin-bottom: 5px;
+  max-width: 100%;
+}
+
+.project-wapper ul li.project-block .title .subtitle {
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+  font-weight: normal;
+  max-width: 100%;
+  display: block;
+}
+
+.project-wapper ul li.project-block .desc {
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  color: #666;
+  word-break: break-all;
+  height: 80px;
+}
+
+.project-wapper ul li.project-block .operation {
+  text-align: center;
+}
+
+.project-wapper ul li.project-block .el-button--small.is-circle {
+  padding: 6px;
+  margin: 0 10px;
 }
 </style>

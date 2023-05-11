@@ -1,6 +1,7 @@
 const path = require('path')
 const chalk = require('chalk')
 const Koa = require('koa')
+const bodyParser = require('koa-bodyparser')
 const history = require('koa-history-api-fallback')
 const koaStatic = require('koa-static')
 // const { historyApiFallback } = require('koa2-connect-history-api-fallback')
@@ -46,6 +47,8 @@ class Ui {
     // 静态文件目录
     app.use(koaStatic(path.resolve(__dirname, '../web/dist')))
     
+    app.use(bodyParser())
+    
     // 挂载全局ctx属性
     registerCtxProps(app)
     app.use(router.routes())
@@ -56,7 +59,7 @@ class Ui {
         const url = `http://localhost:${port}`
         const addressUrl = `http://${getIpAdress()}:${port}`
         console.log(`Server ready at:\n - Local: ${chalk.green(url)}\n - Network: ${chalk.green(addressUrl)}`)
-        openUrl(url)
+        // openUrl(url)
       })
     } catch (err) {
       console.log(err)

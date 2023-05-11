@@ -8,19 +8,20 @@ function getProjectList () {
 async function addProject ({ path, name, description } = {}) {
   // 兼容name包含.时被lowdb识别为切割字符
   name = name.replace(/\./g, '-')
-  if (getProject(name)) {
-    throw '该项目已经存在'
-  }
-  await db.get('projects')
-    .set(name,
-    {
-      name,
-      description,
-      path, // 项目路径
-      customTask: []
-    })
-    .write()
-  return getProject(name)
+  // if (getProject(name)) {
+  //   throw '该项目已经存在'
+  // }
+  // await db.get('projects')
+  //   .set(name,
+  //   {
+  //     name,
+  //     description,
+  //     path, // 项目路径
+  //     customTask: []
+  //   })
+  //   .write()
+  // return getProject(name)
+  return { path, name, description }
 }
 
 /**
