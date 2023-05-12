@@ -1,6 +1,6 @@
 {
   "name": "danboard-proxy-server",
-  "version": "1.2.0",
+  "version": "v1.2.0-alpha",
   "description": "静态服务器代理",
   "main": "index.js",
   "scripts": {
