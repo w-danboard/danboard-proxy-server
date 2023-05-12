@@ -59,7 +59,7 @@ class Ui {
         const url = `http://localhost:${port}`
         const addressUrl = `http://${getIpAdress()}:${port}`
         console.log(`Server ready at:\n - Local: ${chalk.green(url)}\n - Network: ${chalk.green(addressUrl)}`)
-        // openUrl(url)
+        openUrl(url)
       })
     } catch (err) {
       console.log(err)
@@ -67,6 +67,6 @@ class Ui {
   }
 }
 
-// module.exports = new Ui()
-const ui = new Ui()
-ui.startUi()
+module.exports = new Ui()
+// const ui = new Ui()
+// ui.startUi()

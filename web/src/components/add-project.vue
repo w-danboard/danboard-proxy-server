@@ -1,5 +1,5 @@
 <template>
-  <div class="select-os-path">
+  <div class="add-project">
     <!-- 头部路径 -->
     <section class="header__wapper">
       <!-- 返回上级目录 -->
@@ -154,15 +154,15 @@ export default {
 }
 </script>
 <style scoped>
-  .select-os-path {
+  .add-project {
     height: 450px;
   }
-  .select-os-path .header__wapper {
+  .add-project .header__wapper {
     max-height: 60px;
     overflow: auto;
   }
 
-  .select-os-path .header__wapper .el-button {
+  .add-project .header__wapper .el-button {
     padding: 5px 8px;
     font-size: 12px;
     max-width: 150px;
@@ -172,35 +172,35 @@ export default {
     margin-bottom: 10px;
   }
 
-  .select-os-path .header__wapper .inline-block {
+  .add-project .header__wapper .inline-block {
     display: inline-block;
     margin-left: 10px;
   }
 
-  .select-os-path .footer__wapper {
+  .add-project .footer__wapper {
     text-align: center;
   }
 
-  .select-os-path .footer__wapper button {
+  .add-project .footer__wapper button {
     margin-right: 20px;
   }
 
-  .select-os-path .scroll__warpper {
+  .add-project .scroll__warpper {
     height: 320px;
     margin-top: 20px;
     margin-bottom: 20px;
     overflow: hidden;
   }
 
-  .select-os-path .scroll__warpper ul {
+  .add-project .scroll__warpper ul {
     padding: 0 20px;
   }
 
-  .select-os-path .scroll__warpper ul li {
+  .add-project .scroll__warpper ul li {
     line-height: 25px;
   }
 
-  .select-os-path .scroll__warpper ul li .el-link {
+  .add-project .scroll__warpper ul li .el-link {
     font-weight: normal;
   }
 </style>

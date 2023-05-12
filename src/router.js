@@ -17,6 +17,8 @@ router.get('/finder/open', controller.finder.openFolder)
 // 打开编辑器(默认vscode)
 router.get('/finder/open-editor', controller.finder.openEditor)
 
+// 启动项目
+router.post('/project/start', controller.project.startProject)
 // 导入项目
 router.post('/project/add', controller.project.addProject)
 // 项目列表

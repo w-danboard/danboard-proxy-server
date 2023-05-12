@@ -1,5 +1,23 @@
 const { validateIsNpm, readFileSync, isFile } = require('../utils')
 const fs = require('fs')
+
+/**
+ * 启动项目
+ */
+async function startProject (ctx) {
+  ctx.validate({
+    path: { type: 'string', required: true, empty: false }
+  }, ctx.request.body)
+  const { path, proxy, staticFile } = ctx.request.body
+  try {
+    const server = require('../../cli/start')
+    server.setup({ staticPath: path, target: proxy, index: staticFile })
+    ctx.success('服务启动成功')
+  } catch (err) {
+    ctx.error(err)
+  }
+}
+
 /**
  * 添加项目
  */
@@ -94,6 +112,7 @@ async function getReadme (ctx) {
 }
 
 module.exports = {
+  startProject,
   addProject,
   getProjectList,
   delProject,
